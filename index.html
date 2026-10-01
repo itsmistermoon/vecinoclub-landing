@@ -2,9 +2,11 @@
 <html lang="es">
   <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content">
     <meta name="description" content="Sellos y premios en el celular de tus clientes. Fidelización simple para comercios locales de Chile.">
-    <meta name="theme-color" content="#171717">
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#171717">
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#171717">
+    <meta name="color-scheme" content="dark">
     <meta property="og:type" content="website">
     <meta property="og:title" content="VecinoClub · fidelización para comercios locales">
     <meta property="og:description" content="La compra de hoy, el cliente de mañana. Sellos y premios sin apps ni tarjetas de cartón.">
@@ -18,7 +20,7 @@
     <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
     <title>VecinoClub · fidelización para comercios locales</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css?v=scroll-reveal-20260929">
   </head>
   <body>
     <a class="skip-link" href="#contenido">Saltar al contenido</a>
@@ -40,7 +42,7 @@
 
       <main id="contenido">
         <section class="hero" aria-labelledby="hero-title">
-          <div class="hero-copy">
+          <div class="hero-copy" data-reveal>
             <span class="mono">Fidelización para comercios locales · Chile</span>
             <h1 id="hero-title">La compra de hoy, el cliente de <em>mañana.</em></h1>
             <p class="hero-subtitle">Sellos y premios en el celular de tus clientes. Sin apps que descargar, sin tarjetas de cartón que se pierden.</p>
@@ -53,7 +55,7 @@
               <div><b>0 apps</b><span class="mono">funciona en el navegador</span></div>
             </div>
           </div>
-          <div class="hero-visual" aria-label="Ejemplo de tarjeta de sellos de VecinoClub">
+          <div class="hero-visual" data-reveal aria-label="Ejemplo de tarjeta de sellos de VecinoClub">
             <div class="hero-card">
               <div class="card-row"><strong>Panadería Central</strong><small>Powered by <img src="assets/vecinoclub_variant2_mono_dark.svg" width="70" height="10" alt="VecinoClub"></small></div>
               <div class="stamps" role="img" aria-label="Cinco de siete sellos completados">
@@ -67,24 +69,24 @@
 
         <section class="steps" id="como-funciona" aria-labelledby="steps-title">
           <h2 id="steps-title" class="sr-only">Cómo funciona</h2>
-          <div><span class="mono">01</span><h3>Entra</h3><p>Un QR en tu mostrador y tu cliente ya participa.</p></div>
-          <div><span class="mono">02</span><h3>Avanza</h3><p>Cada compra suma un sello. Siempre ve cuánto le falta.</p></div>
-          <div><span class="mono">03</span><h3>Recibe</h3><p>Canjea su premio en tu local, contigo presente.</p></div>
+          <div data-reveal><span class="mono">01</span><h3>Entra</h3><p>Un QR en tu mostrador y tu cliente ya participa.</p></div>
+          <div data-reveal><span class="mono">02</span><h3>Avanza</h3><p>Cada compra suma un sello. Siempre ve cuánto le falta.</p></div>
+          <div data-reveal><span class="mono">03</span><h3>Recibe</h3><p>Canjea su premio en tu local, contigo presente.</p></div>
         </section>
 
         <section class="statement" aria-labelledby="statement-title">
-          <h2 id="statement-title">Que vuelva es<br>lo que importa.</h2>
-          <div>
+          <h2 id="statement-title" data-reveal>Que vuelva es<br>lo que importa.</h2>
+          <div data-reveal>
             <p>Muchos comercios de barrio dependen de que sus clientes regresen, pero no tienen cómo agradecérselo ni cómo saber quiénes son.</p>
             <p>VecinoClub le da a tu comercio una tarjeta de sellos moderna, sencilla y tuya: tú eliges el premio, el ritmo y cómo lo entregas.</p>
           </div>
         </section>
 
         <section class="use-cases" id="para-quien" aria-labelledby="use-title">
-          <span class="mono">Para todo tipo de comercio</span>
-          <h2 id="use-title">Un premio que tú defines</h2>
-          <p class="section-subtitle">Ejemplos de cómo podría verse en tu negocio. Las reglas las pones tú.</p>
-          <div class="case-grid">
+          <span class="mono" data-reveal>Para todo tipo de comercio</span>
+          <h2 id="use-title" data-reveal>Un premio que tú defines</h2>
+          <p class="section-subtitle" data-reveal>Ejemplos de cómo podría verse en tu negocio. Las reglas las pones tú.</p>
+          <div class="case-grid" data-reveal>
             <article><span class="case-number">01</span><h3>Panadería</h3><p>Un pan de regalo después de varias visitas.</p><code>8 compras → 1 pan</code></article>
             <article><span class="case-number">02</span><h3>Café</h3><p>El clásico: el café número diez va por la casa.</p><code>9 cafés → 1 gratis</code></article>
             <article><span class="case-number">03</span><h3>Peluquería</h3><p>Un descuento para quien vuelve cada mes.</p><code>5 cortes → 20% off</code></article>
@@ -95,8 +97,8 @@
         </section>
 
         <section class="closing" id="contacto" aria-labelledby="closing-title">
-          <h2 id="closing-title">¿Partimos con tu comercio?</h2>
-          <div class="closing-actions">
+          <h2 id="closing-title" data-reveal>¿Partimos con tu comercio?</h2>
+          <div class="closing-actions" data-reveal>
             <a class="btn dark" href="https://wa.me/56978505946">
               <svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
               Hablemos
@@ -111,5 +113,28 @@
 
       <footer><span>© VecinoClub</span><span>Fidelización para comercios locales de Chile</span></footer>
     </div>
+    <script>
+      document.documentElement.classList.add('js');
+      const reveal = () => {
+        const items = document.querySelectorAll('[data-reveal]');
+        if (!('IntersectionObserver' in window)) {
+          items.forEach((item) => item.setAttribute('data-visible', ''));
+          return;
+        }
+        const observer = new IntersectionObserver((entries, currentObserver) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            entry.target.setAttribute('data-visible', '');
+            currentObserver.unobserve(entry.target);
+          });
+        }, { rootMargin: '0px 0px -12% 0px', threshold: 0.12 });
+        items.forEach((item) => observer.observe(item));
+      };
+      if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(reveal);
+      } else {
+        reveal();
+      }
+    </script>
   </body>
 </html>
