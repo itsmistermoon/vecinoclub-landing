@@ -1,13 +1,7 @@
 # VecinoClub landing
 
-Landing estática independiente de `frontend/`: no usa JavaScript, build ni
-dependencias del frontend. En Vercel, configurar `landing/` como **Root
-Directory** y publicar como sitio estático.
+Landing estática de VecinoClub. El proyecto se sirve desde la raíz del repositorio, sin build ni dependencias externas.
 
-Las etiquetas monoespaciadas usan `ui-monospace, Menlo, monospace` porque
-JetBrains Mono no está aprobada para esta superficie. Las fuentes aprobadas
-(Rubik y Barlow Condensed) están autoalojadas en `fonts/`.
+En Vercel, usa este repositorio con **Root Directory** en `.` y producción desde `main`. Los archivos de la página están en `index.html` y `styles.css`; los recursos de marca y el favicon están en `assets/`, las fuentes aprobadas autoalojadas en `fonts/`, y la imagen social en `og-image.png`.
 
-Las metaetiquetas `og:url`, `og:image` y `twitter:image` de `index.html` usan
-el dominio de Vercel por ahora. Al comprar `vecinoclub.cl`, cambiar las URLs
-de nuevo al dominio definitivo.
+La galería de ejemplos y las transiciones están implementadas en la página y respetan `prefers-reduced-motion`.
