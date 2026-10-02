@@ -66,7 +66,7 @@
             <div class="form-status form-status-error" role="alert" data-fs-error>No pudimos enviar tu mensaje. Revisa los datos e inténtalo de nuevo, o escríbenos por correo.</div>
             <div class="form-status form-status-success" role="status" data-fs-success>¡Gracias! Recibimos tu mensaje y te responderemos pronto.</div>
             <p class="form-status form-status-sending" id="contact-sending" role="status" hidden>Enviando…</p>
-            <button class="btn primary" type="submit" data-fs-submit-btn>Enviar mensaje</button>
+            <button class="btn outline" type="submit" data-fs-submit-btn disabled aria-disabled="true">Enviar mensaje</button>
           </form>
           <p class="contact-alt">¿Prefieres escribir directo? Mándanos un correo a <a href="mailto:vecinoclub@gmail.com">vecinoclub@gmail.com</a>.</p>
           </div>
@@ -79,21 +79,33 @@
       const contactForm = document.getElementById('contact-form');
       const contactSending = document.getElementById('contact-sending');
       const contactSubmit = contactForm.querySelector('[data-fs-submit-btn]');
-      const setSending = (sending) => {
+      let sending = false;
+      const syncSubmit = () => {
+        const complete = contactForm.elements.name.value.trim() && contactForm.elements.email.checkValidity() && contactForm.elements.message.value.trim();
+        const disabled = sending || !complete;
+        if (contactSubmit.disabled !== disabled) contactSubmit.disabled = disabled;
+        contactSubmit.setAttribute('aria-disabled', disabled);
+      };
+      const setSending = (value) => {
+        sending = value;
         contactSending.hidden = !sending;
         contactSubmit.textContent = sending ? 'Enviando…' : 'Enviar mensaje';
+        syncSubmit();
       };
+      contactForm.addEventListener('input', syncSubmit);
+      new MutationObserver(syncSubmit).observe(contactSubmit, { attributes: true, attributeFilter: ['disabled'] });
       window.formspree = window.formspree || function () { (formspree.q = formspree.q || []).push(arguments); };
       formspree('initForm', {
         formElement: contactForm,
         formId: 'xljdyqpe',
         useDefaultStyles: false,
         onSubmit: () => setSending(true),
-        onSuccess: () => { setSending(false); contactForm.reset(); },
+        onSuccess: () => { contactForm.reset(); setSending(false); },
         onError: () => setSending(false),
         onFailure: () => setSending(false)
       });
     </script>
+    <script src="buttons.js" defer></script>
     <script src="https://unpkg.com/@formspree/ajax@1" defer></script>
   </body>
 </html>
