@@ -48,7 +48,7 @@
             <p class="hero-subtitle">Fideliza a tus clientes con sellos y puntos en su celular, como lo hacen las grandes cadenas.</p>
             <div class="cta-row">
               <a class="btn primary" href="https://wa.me/56978505946">Lo quiero en mi negocio</a>
-              <a class="btn outline" href="mailto:vecinoclub@gmail.com">Escríbenos por correo</a>
+              <a class="btn outline" href="/contacto">Escríbenos por correo</a>
             </div>
             <div class="facts" aria-label="Características principales">
               <div><b>Sin instalar nada</b><span class="mono">se abre desde el celular</span></div>
@@ -137,45 +137,13 @@
               <svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
               Escríbenos por WhatsApp
             </a>
-            <a class="btn outline-dark" href="mailto:vecinoclub@gmail.com">
+            <a class="btn outline-dark" href="/contacto">
               <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
               Escríbenos por correo
             </a>
           </div>
         </section>
 
-        <section class="contact" id="formulario" aria-labelledby="contact-title">
-          <div class="contact-copy" data-reveal>
-            <span class="mono">Contacto</span>
-            <h2 id="contact-title">Cuéntanos de tu negocio</h2>
-            <p>Déjanos tus datos y un mensaje. Te respondemos por correo.</p>
-          </div>
-          <form class="contact-form" id="contact-form" data-reveal>
-            <div class="field">
-              <label for="contact-name">Nombre</label>
-              <input type="text" id="contact-name" name="name" autocomplete="name" required data-fs-field aria-describedby="contact-name-error">
-              <span class="field-error" id="contact-name-error" data-fs-error="name">Ingresa tu nombre.</span>
-            </div>
-            <div class="field">
-              <label for="contact-email">Correo</label>
-              <input type="email" id="contact-email" name="email" autocomplete="email" required data-fs-field aria-describedby="contact-email-error">
-              <span class="field-error" id="contact-email-error" data-fs-error="email">Ingresa un correo válido.</span>
-            </div>
-            <div class="field">
-              <label for="contact-message">Mensaje</label>
-              <textarea id="contact-message" name="message" rows="5" required data-fs-field aria-describedby="contact-message-error"></textarea>
-              <span class="field-error" id="contact-message-error" data-fs-error="message">Escribe tu mensaje.</span>
-            </div>
-            <div class="hp" aria-hidden="true">
-              <label for="contact-gotcha">No completar este campo</label>
-              <input type="text" id="contact-gotcha" name="_gotcha" tabindex="-1" autocomplete="off">
-            </div>
-            <div class="form-status form-status-error" role="alert" data-fs-error>No pudimos enviar tu mensaje. Revisa los datos e inténtalo de nuevo, o escríbenos por correo.</div>
-            <div class="form-status form-status-success" role="status" data-fs-success>¡Gracias! Recibimos tu mensaje y te responderemos pronto.</div>
-            <p class="form-status form-status-sending" id="contact-sending" role="status" hidden>Enviando…</p>
-            <button class="btn primary" type="submit" data-fs-submit-btn>Enviar mensaje</button>
-          </form>
-        </section>
       </main>
 
       <footer><span>© VecinoClub</span><span>Fidelización para comercios locales de Chile</span></footer>
@@ -335,25 +303,5 @@
         reveal();
       }
     </script>
-    <script>
-      const contactForm = document.getElementById('contact-form');
-      const contactSending = document.getElementById('contact-sending');
-      const contactSubmit = contactForm.querySelector('[data-fs-submit-btn]');
-      const setSending = (sending) => {
-        contactSending.hidden = !sending;
-        contactSubmit.textContent = sending ? 'Enviando…' : 'Enviar mensaje';
-      };
-      window.formspree = window.formspree || function () { (formspree.q = formspree.q || []).push(arguments); };
-      formspree('initForm', {
-        formElement: contactForm,
-        formId: 'xljdyqpe',
-        useDefaultStyles: false,
-        onSubmit: () => setSending(true),
-        onSuccess: () => { setSending(false); contactForm.reset(); },
-        onError: () => setSending(false),
-        onFailure: () => setSending(false)
-      });
-    </script>
-    <script src="https://unpkg.com/@formspree/ajax@1" defer></script>
   </body>
 </html>
