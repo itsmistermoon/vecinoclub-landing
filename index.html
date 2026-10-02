@@ -87,12 +87,12 @@
           <h2 id="use-title" data-reveal>Tú defines el beneficio</h2>
           <div class="section-intro" data-reveal>
             <p class="section-subtitle">Puede ser algo pequeño. Tú decides cuánto y cuándo. Algunos ejemplos:</p>
-            <button class="reward-rotation-toggle" type="button" aria-label="Pausar ejemplos" hidden>
+            <button class="reward-rotation-toggle" type="button" aria-label="Pausar" hidden>
               <span class="toggle-icons">
               <svg class="icon" data-pause-icon viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="4" width="4" height="16" rx="1"/><rect x="14" y="4" width="4" height="16" rx="1"/></svg>
               <svg class="icon" data-play-icon viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="6 3 20 12 6 21 6 3"/></svg>
               </span>
-              <span class="btn-label">Pausar ejemplos</span>
+              <span class="btn-label">Pausar</span>
             </button>
           </div>
           <div class="reward-accordion" data-reveal>
@@ -209,7 +209,7 @@
       let rotationPointerInside = false;
       let rotationUserPaused = false;
       const updateRotationControl = () => {
-        const label = rotationUserPaused ? 'Reanudar' : 'Pausar ejemplos';
+        const label = rotationUserPaused ? 'Reanudar' : 'Pausar';
         rotationToggle.dataset.state = rotationUserPaused ? 'paused' : 'playing';
         rotationToggle.setAttribute('aria-label', label);
         rotationToggle.querySelector('.btn-label').textContent = label;
@@ -299,6 +299,5 @@
         reveal();
       }
     </script>
-    <script src="buttons.js" defer></script>
   </body>
 </html>
