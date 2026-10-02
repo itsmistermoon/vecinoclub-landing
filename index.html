@@ -87,10 +87,12 @@
           <h2 id="use-title" data-reveal>Tú defines el beneficio</h2>
           <div class="section-intro" data-reveal>
             <p class="section-subtitle">Puede ser algo pequeño. Tú decides cuánto y cuándo. Algunos ejemplos:</p>
-            <button class="reward-rotation-toggle" type="button" hidden>
+            <button class="reward-rotation-toggle" type="button" aria-label="Pausar ejemplos" hidden>
+              <span class="toggle-icons">
               <svg class="icon" data-pause-icon viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="4" width="4" height="16" rx="1"/><rect x="14" y="4" width="4" height="16" rx="1"/></svg>
-              <svg class="icon" data-play-icon viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" hidden><polygon points="6 3 20 12 6 21 6 3"/></svg>
-              <span>Pausar ejemplos</span>
+              <svg class="icon" data-play-icon viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="6 3 20 12 6 21 6 3"/></svg>
+              </span>
+              <span class="toggle-label">Pausar ejemplos</span>
             </button>
           </div>
           <div class="reward-accordion" data-reveal>
@@ -233,15 +235,16 @@
       const rewardAccordion = document.querySelector('.reward-accordion');
       const rotationToggle = document.querySelector('.reward-rotation-toggle');
       const rotationAllowed = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      const rotationInterval = 6000;
+      const rotationInterval = 5000;
       let rotationTimer = null;
       let rotationInView = false;
       let rotationPointerInside = false;
       let rotationUserPaused = false;
       const updateRotationControl = () => {
-        rotationToggle.querySelector('[data-pause-icon]').hidden = rotationUserPaused;
-        rotationToggle.querySelector('[data-play-icon]').hidden = !rotationUserPaused;
-        rotationToggle.querySelector('span').textContent = rotationUserPaused ? 'Reanudar ejemplos' : 'Pausar ejemplos';
+        const label = rotationUserPaused ? 'Reanudar' : 'Pausar ejemplos';
+        rotationToggle.dataset.state = rotationUserPaused ? 'paused' : 'playing';
+        rotationToggle.setAttribute('aria-label', label);
+        rotationToggle.querySelector('.toggle-label').textContent = label;
         rewardPanel.setAttribute('aria-live', rotationTimer ? 'off' : 'polite');
       };
       const stopRotation = (manualPause = false) => {
@@ -261,6 +264,10 @@
       rotationToggle.hidden = !rotationAllowed;
       if (rotationAllowed) updateRotationControl();
       rotationToggle.addEventListener('click', () => {
+        rotationToggle.querySelector('.toggle-label').animate(
+          [{ opacity: 0, transform: 'translateY(4px)', filter: 'blur(3px)' }, { opacity: 1, transform: 'none', filter: 'blur(0)' }],
+          { duration: 220, easing: 'cubic-bezier(.2,.75,.25,1)' }
+        );
         if (rotationUserPaused) {
           rotationUserPaused = false;
           updateRotationControl();
