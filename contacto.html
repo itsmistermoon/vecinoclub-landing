@@ -9,7 +9,7 @@
     <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
     <title>Contacto | VecinoClub</title>
-    <link rel="stylesheet" href="styles.css?v=contacto-ancho">
+    <link rel="stylesheet" href="styles.css?v=correo-shake">
   </head>
   <body>
     <a class="skip-link" href="#contenido">Saltar al contenido</a>
@@ -52,7 +52,7 @@
             <div class="field">
               <label for="contact-email">Correo</label>
               <input type="email" id="contact-email" name="email" autocomplete="email" required data-fs-field aria-describedby="contact-email-error">
-              <span class="field-error" id="contact-email-error" data-fs-error="email">Ingresa un correo válido.</span>
+              <span class="field-error" id="contact-email-error" role="alert" data-fs-error="email">Ingresa tu correo.</span>
             </div>
             <div class="field">
               <label for="contact-message">Mensaje</label>
@@ -92,6 +92,24 @@
         contactSubmit.textContent = sending ? 'Enviando…' : 'Enviar mensaje';
         syncSubmit();
       };
+      const emailInput = contactForm.elements.email;
+      const emailError = document.getElementById('contact-email-error');
+      const setEmailInvalid = (invalid) => {
+        if (invalid) {
+          emailError.textContent = emailInput.value.trim() ? 'Ingresa un correo válido.' : 'Ingresa tu correo.';
+          if (emailInput.getAttribute('aria-invalid') !== 'true') {
+            emailInput.setAttribute('aria-invalid', 'true');
+            emailInput.classList.remove('is-shaking');
+            void emailInput.offsetWidth;
+            emailInput.classList.add('is-shaking');
+          }
+        } else {
+          emailInput.removeAttribute('aria-invalid');
+        }
+      };
+      emailInput.addEventListener('animationend', () => emailInput.classList.remove('is-shaking'));
+      emailInput.addEventListener('blur', () => setEmailInvalid(!emailInput.checkValidity()));
+      emailInput.addEventListener('input', () => { if (emailInput.checkValidity()) setEmailInvalid(false); });
       contactForm.addEventListener('input', syncSubmit);
       new MutationObserver(syncSubmit).observe(contactSubmit, { attributes: true, attributeFilter: ['disabled'] });
       window.formspree = window.formspree || function () { (formspree.q = formspree.q || []).push(arguments); };
