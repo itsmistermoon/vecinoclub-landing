@@ -1,0 +1,12 @@
+name: brand
+on:
+  pull_request:
+  push:
+    branches: [main]
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: assets/brand coincide con el checksum fijado por sync-brand.sh
+        run: scripts/sync-brand.sh --verify
