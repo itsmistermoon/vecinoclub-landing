@@ -1,0 +1,14 @@
+name: brand
+on:
+  pull_request:
+  push:
+    branches: [main]
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: assets/brand coincide con el checksum fijado por sync-brand.sh
+        run: |
+          sudo apt-get -qq install -y libdigest-sha-perl >/dev/null 2>&1 || true
+          scripts/sync-brand.sh --verify
