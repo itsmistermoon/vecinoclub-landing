@@ -8,7 +8,7 @@
 set -euo pipefail
 
 REPO=ImaquinariaCL/loyalty-platform
-REF=d7461f69a1e4edebaeb333b1481563a8e21b3132
+REF=e0ffbb3856b843e58e659bd2354a95797b7dd0f3
 # Rutas relativas a frontend/public/ según brand/platform/manifest.json
 FILES=(
   brand/platform/vecinoclub_logo_color_light.svg
