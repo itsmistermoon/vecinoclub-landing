@@ -1,57 +1,48 @@
 #!/usr/bin/env bash
-# Copia los archivos de marca desde ImaquinariaCL/loyalty-platform (ref fijado)
-# hacia assets/brand/. No editar assets/brand/ a mano.
-#
-#   scripts/sync-brand.sh           descarga desde la fuente y actualiza assets/brand/
-#   scripts/sync-brand.sh --check   falla si assets/brand/ difiere de la fuente (requiere gh)
-#   scripts/sync-brand.sh --verify  falla si assets/brand/ difiere de SHA256SUMS (offline, usado en CI)
+# Copias fijadas de itsmistermoon/vecinoclub-brand. No editar los archivos a mano.
 set -euo pipefail
-
-REPO=ImaquinariaCL/loyalty-platform
-REF=e0ffbb3856b843e58e659bd2354a95797b7dd0f3
-# Rutas relativas a frontend/public/ según brand/platform/manifest.json
+REPO=https://github.com/itsmistermoon/vecinoclub-brand.git
+REF=527a85763cbfb3c4a72090ab69378b9ff6d4b065
 FILES=(
-  brand/platform/vecinoclub_logo_color_light.svg
-  brand/platform/vecinoclub_variant2_mono_dark.svg
-  brand/platform/vecinoclub_favicon_color.svg
-  brand/platform/favicon-16.png
-  brand/platform/favicon-32.png
-  vecinoclub/apple-touch-icon.png
-  brand/platform/vecinoclub_social_og.png
+  assets/identity/vecinoclub_logo_color_light.svg
+  assets/identity/vecinoclub_variant2_mono_dark.svg
+  assets/identity/vecinoclub_favicon_color.svg
+  assets/identity/favicon-16.png
+  assets/identity/favicon-32.png
+  assets/app-icons/apple-touch-icon.png
+  assets/identity/vecinoclub_social_og.png
 )
-
+FONTS=(
+  rubik-latin-wght-normal.woff2
+  barlow-condensed-latin-400-normal.woff2
+  barlow-condensed-latin-700-normal.woff2
+)
 cd "$(dirname "$0")/.."
 DEST=assets/brand
-
-fetch() {
-  local dir=$1 f
-  for f in "${FILES[@]}"; do
-    gh api -H 'Accept: application/vnd.github.raw' \
-      "repos/$REPO/contents/frontend/public/$f?ref=$REF" > "$dir/$(basename "$f")"
-  done
+MODE=${1:-}
+if [[ "$MODE" == --verify ]]; then
+  (cd "$DEST" && shasum -a 256 -c SHA256SUMS)
+  exit
+fi
+if [[ "$MODE" != '' && "$MODE" != --check ]]; then
+  echo "uso: $0 [--check|--verify]" >&2
+  exit 2
+fi
+TMP=$(mktemp -d)
+trap 'rm -rf "$TMP"' EXIT
+git clone -q "$REPO" "$TMP/brand"
+git -C "$TMP/brand" checkout -q "$REF"
+copy_or_check() {
+  if [[ "$MODE" == --check ]]; then cmp "$1" "$2"; else cp "$1" "$2"; fi
 }
-
-case "${1:-}" in
-  --verify)
-    (cd "$DEST" && shasum -a 256 -c SHA256SUMS)
-    ;;
-  --check)
-    tmp=$(mktemp -d)
-    trap 'rm -rf "$tmp"' EXIT
-    fetch "$tmp"
-    for f in "${FILES[@]}"; do
-      cmp "$tmp/$(basename "$f")" "$DEST/$(basename "$f")"
-    done
-    ;;
-  "")
-    rm -rf "$DEST"
-    mkdir -p "$DEST"
-    fetch "$DEST"
-    sums=$(cd "$DEST" && shasum -a 256 -- *)
-    echo "$sums" > "$DEST/SHA256SUMS"
-    ;;
-  *)
-    echo "uso: $0 [--check|--verify]" >&2
-    exit 2
-    ;;
-esac
+if [[ "$MODE" != --check ]]; then mkdir -p "$DEST" fonts; fi
+for file in "${FILES[@]}"; do
+  copy_or_check "$TMP/brand/$file" "$DEST/$(basename "$file")"
+done
+for file in "${FONTS[@]}"; do
+  copy_or_check "$TMP/brand/fonts/$file" "fonts/$file"
+done
+copy_or_check "$TMP/brand/tokens/vecinoclub.css" "$DEST/vecinoclub.css"
+if [[ "$MODE" != --check ]]; then
+  (cd "$DEST" && shasum -a 256 -- $(find . -maxdepth 1 -type f ! -name SHA256SUMS -print | sed 's|^./||' | sort)) > "$DEST/SHA256SUMS"
+fi

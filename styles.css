@@ -3,7 +3,7 @@
 @font-face{font-family:"Barlow Condensed";src:url("fonts/barlow-condensed-latin-700-normal.woff2") format("woff2");font-style:normal;font-weight:700;font-display:swap}
 
 @font-face{font-family:"Barlow Fallback";src:local("Arial Narrow Bold"),local("Arial Bold"),local("Arial");size-adjust:62%;ascent-override:95%;descent-override:20%;font-weight:700}
-:root{color-scheme:dark;--gutter:clamp(22px,5vw,64px);--page:#171717;--surface:#211e1a;--surface-raised:#27231e;--ink:#fcf4df;--muted:#c6b29d;--line:#3a332c;--orange:#fb772a;--orange-dark:#ff8b47;--gold:#fcbf29;--radius:28px;--shadow:none;--ease:cubic-bezier(.2,.75,.25,1)}
+:root{color-scheme:dark;--gutter:var(--vc-gutter);--page:var(--vc-background);--surface:var(--vc-card);--surface-raised:var(--vc-surface-raised);--ink:var(--vc-foreground);--muted:var(--vc-muted-foreground);--line:var(--vc-border);--orange:var(--vc-primary);--orange-dark:var(--vc-primary-hover);--gold:var(--vc-gold);--radius:var(--vc-radius);--shadow:none;--ease:var(--vc-ease)}
 *{box-sizing:border-box}
 html{background:var(--page);scroll-behavior:smooth;-webkit-tap-highlight-color:transparent;-webkit-text-size-adjust:100%}
 body{margin:0;background:var(--page);color:var(--ink);font-family:Rubik,system-ui,sans-serif;line-height:1.55;-webkit-font-smoothing:antialiased}
