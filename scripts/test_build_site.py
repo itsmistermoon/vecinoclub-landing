@@ -21,7 +21,11 @@ class PublicText(HTMLParser):
         attributes = dict(attrs)
         if tag == "body":
             self.in_body = True
-        if tag in self.ignored_tags or "hidden" in attributes or attributes.get("aria-hidden") == "true":
+        if (
+            tag in self.ignored_tags
+            or "hidden" in attributes
+            or attributes.get("aria-hidden") == "true"
+        ):
             self.ignored.append(tag)
 
     def handle_endtag(self, tag):
@@ -49,7 +53,12 @@ class BuildSiteTest(unittest.TestCase):
         self.assertIn("https://wa.me/56978505946", markdown)
         self.assertIn("/contacto", markdown)
         self.assertIn("/llms.txt", markdown)
-        for text in ("Sin instalar nada", "se abre desde el celular", "Tú defines el beneficio", "y cuántas compras pide"):
+        for text in (
+            "Sin instalar nada",
+            "se abre desde el celular",
+            "Tú defines el beneficio",
+            "y cuántas compras pide",
+        ):
             self.assertIn(text.casefold(), markdown.casefold())
 
 

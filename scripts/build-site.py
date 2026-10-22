@@ -10,7 +10,19 @@ OUTPUT = ROOT / "dist"
 
 class LandingMarkdown(HTMLParser):
     ignored_tags = {"button", "form", "script", "style", "svg"}
-    block_tags = {"article", "div", "footer", "h1", "h2", "h3", "header", "li", "main", "p", "section"}
+    block_tags = {
+        "article",
+        "div",
+        "footer",
+        "h1",
+        "h2",
+        "h3",
+        "header",
+        "li",
+        "main",
+        "p",
+        "section",
+    }
     content_tags = {"body", "footer", "header", "main"}
 
     def __init__(self):
@@ -45,7 +57,11 @@ class LandingMarkdown(HTMLParser):
             if tag in self.ignored_tags:
                 self.ignored_stack.append(tag)
             return
-        if tag in self.ignored_tags or "hidden" in attributes or attributes.get("aria-hidden") == "true":
+        if (
+            tag in self.ignored_tags
+            or "hidden" in attributes
+            or attributes.get("aria-hidden") == "true"
+        ):
             self.ignored_stack.append(tag)
             return
         if tag == "a":
@@ -106,7 +122,9 @@ def make_markdown():
     for reward in rewards:
         if reward["count"]:
             details = f"{reward['count']} {reward['unit']} para recibir {reward['prizeCount']} {reward['prize']}"
-            lines.extend([f"- **{reward['name']}:** {reward['description']} {details}.", ""])
+            lines.extend(
+                [f"- **{reward['name']}:** {reward['description']} {details}.", ""]
+            )
         else:
             lines.extend([f"- **{reward['name']}:** {reward['description']}", ""])
     if parser.links:
