@@ -34,6 +34,21 @@ class BuildSiteTest(unittest.TestCase):
         self.assertIn("https://wa.me/56978505946", self.markdown)
         self.assertIn("https://vecinoclub.cl/contacto", self.markdown)
 
+    def test_starts_with_a_branded_description_and_site_address(self):
+        self.assertIn(
+            "# Tu propio club de beneficios.\n\nVecinoClub es un club de beneficios para comercios. Más información: https://vecinoclub.cl.",
+            self.markdown,
+        )
+
+    def test_audience_context_joins_the_benefit_heading(self):
+        self.assertIn("## Para todo tipo de comercios: Tú defines el beneficio", self.markdown)
+        self.assertNotIn("\n\nPara todo tipo de comercios\n", self.markdown)
+
+    def test_contact_links_are_labeled_from_the_html(self):
+        self.assertIn("- [WhatsApp](https://wa.me/56978505946)", self.markdown)
+        self.assertIn("- [Contacto](https://vecinoclub.cl/contacto)", self.markdown)
+        self.assertNotIn("- <https://", self.markdown)
+
     def test_omits_interface_copy_decorative_numbers_and_hero_demo(self):
         for phrase in (
             "Saltar al contenido",

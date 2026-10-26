@@ -24,6 +24,7 @@ class LandingContent(HTMLParser):
         self.reward_json = []
         self.capture_rewards = False
         self.site_url = ""
+        self.intro = ""
 
     def flush(self):
         text = " ".join(" ".join(self.current_parts).split()).replace(" .", ".")
@@ -47,6 +48,7 @@ class LandingContent(HTMLParser):
 
         if self.content_depth == 0 and "data-llms-content" in attributes:
             self.content_depth = 1
+            self.intro = attributes.get("data-llms-intro", "")
             return
         if not self.content_depth:
             return
@@ -56,10 +58,13 @@ class LandingContent(HTMLParser):
 
         if tag == "a":
             href = attributes.get("href", "")
+            label = attributes.get("data-llms-label", "")
             if href.startswith("https://"):
-                self.links.append(href)
+                if label:
+                    self.links.append((label, href))
             elif href.startswith("/"):
-                self.links.append(f"{self.site_url}{href}")
+                if label:
+                    self.links.append((label, f"{self.site_url}{href}"))
 
         if (
             tag in IGNORED_TAGS
@@ -129,9 +134,19 @@ def make_markdown():
             else:
                 lines.extend([f"- **{reward['name']}:** {reward['description']}", ""])
 
-    for tag, text in parser.blocks:
+    skip_next_heading = False
+    for index, (tag, text) in enumerate(parser.blocks):
+        if skip_next_heading:
+            skip_next_heading = False
+            continue
+        if tag == "span" and index + 1 < len(parser.blocks) and parser.blocks[index + 1][0] == "h2":
+            lines.extend([f"## {text}: {parser.blocks[index + 1][1]}", ""])
+            skip_next_heading = True
+            continue
         if tag == "h1":
             lines.extend([f"# {text}", ""])
+            if parser.intro:
+                lines.extend([parser.intro, ""])
         elif tag in {"h2", "h3"}:
             lines.extend([f"## {text}", ""])
         elif tag == "fact":
@@ -142,7 +157,7 @@ def make_markdown():
             add_examples()
 
     if parser.links:
-        lines.extend(f"- <{href}>" for href in dict.fromkeys(parser.links))
+        lines.extend(f"- [{label}]({href})" for label, href in dict.fromkeys(parser.links))
     return "\n".join(lines).strip() + "\n"
 
 
