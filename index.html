@@ -43,7 +43,7 @@
         </a>
       </header>
 
-      <main id="contenido">
+      <main id="contenido" data-llms-content>
         <section class="hero" aria-labelledby="hero-title">
           <div class="hero-copy">
             <h1 id="hero-title">Tu propio club de beneficios.</h1>
@@ -88,7 +88,7 @@
           <span class="mono">Para todo tipo de comercios</span>
           <h2 id="use-title">Tú defines el beneficio</h2>
           <div class="section-intro">
-            <p class="section-subtitle">Puede ser algo pequeño. Tú decides cuánto y cuándo. Algunos ejemplos:</p>
+            <p class="section-subtitle">Puede ser algo pequeño. Tú decides cuánto y cuándo. Ejemplos ilustrativos:</p>
             <button class="reward-rotation-toggle" type="button" aria-label="Pausar" hidden>
               <span class="toggle-icons">
               <svg class="icon" data-pause-icon viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="4" width="4" height="16" rx="1"/><rect x="14" y="4" width="4" height="16" rx="1"/></svg>
@@ -153,16 +153,19 @@
 
       <footer><span>© VecinoClub</span><span>Fidelización para comercios locales de Chile</span></footer>
     </div>
+    <script type="application/json" id="reward-businesses">
+      [
+        { "id": "bakery", "name": "Panadería", "icon": "croissant", "description": "Una bollería de la casa después de varias visitas.", "count": "8", "unit": "compras", "prizeCount": "1", "prize": "bollería" },
+        { "id": "cafe", "name": "Café", "icon": "coffee", "description": "El café número diez va por la casa.", "count": "9", "unit": "cafés", "prizeCount": "1", "prize": "gratis" },
+        { "id": "hair", "name": "Peluquería", "icon": "scissors", "description": "Un descuento para quien viene cada mes.", "count": "5", "unit": "cortes", "prizeCount": "20%", "prize": "de descuento" },
+        { "id": "bookstore", "name": "Librería", "icon": "book", "description": "Un marcapáginas o un descuento para quien lee harto.", "count": "6", "unit": "libros", "prizeCount": "1", "prize": "regalo" },
+        { "id": "pantry", "name": "Almacén", "icon": "bag", "description": "Una bolsa de regalo para los clientes de siempre.", "count": "10", "unit": "compras", "prizeCount": "1", "prize": "bolsa" },
+        { "id": "own", "name": "Tu comercio", "icon": "store", "description": "Cuéntanos qué vendes y armamos tu tarjeta juntos.", "count": "", "unit": "", "prizeCount": "", "prize": "" }
+      ]
+    </script>
     <script>
       document.documentElement.classList.add('js');
-      const rewardBusinesses = [
-        { id: 'bakery', name: 'Panadería', icon: 'croissant', description: 'Una bollería de la casa después de varias visitas.', count: '8', unit: 'compras', prizeCount: '1', prize: 'bollería' },
-        { id: 'cafe', name: 'Café', icon: 'coffee', description: 'El café número diez va por la casa.', count: '9', unit: 'cafés', prizeCount: '1', prize: 'gratis' },
-        { id: 'hair', name: 'Peluquería', icon: 'scissors', description: 'Un descuento para quien viene cada mes.', count: '5', unit: 'cortes', prizeCount: '20%', prize: 'de descuento' },
-        { id: 'bookstore', name: 'Librería', icon: 'book', description: 'Un marcapáginas o un descuento para quien lee harto.', count: '6', unit: 'libros', prizeCount: '1', prize: 'regalo' },
-        { id: 'pantry', name: 'Almacén', icon: 'bag', description: 'Una bolsa de regalo para los clientes de siempre.', count: '10', unit: 'compras', prizeCount: '1', prize: 'bolsa' },
-        { id: 'own', name: 'Tu comercio', icon: 'store', description: 'Cuéntanos qué vendes y armamos tu tarjeta juntos.', count: '', unit: '', prizeCount: '', prize: '' }
-      ];
+      const rewardBusinesses = JSON.parse(document.getElementById('reward-businesses').textContent);
       const rewardTabs = [...document.querySelectorAll('.reward-tab')];
       const rewardPanel = document.querySelector('.reward-detail');
       const transitionRewardContent = () => {
