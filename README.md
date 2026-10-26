@@ -1,8 +1,10 @@
 # VecinoClub landing
 
-Landing estática de VecinoClub. El proyecto se sirve desde la raíz del repositorio, sin build ni dependencias externas.
+Landing estática de VecinoClub. Python estándar construye `dist/` y genera `llms.txt` desde el contenido de `index.html`; no hay dependencias externas. CI comprueba el contenido generado.
 
 En Vercel, usa este repositorio con **Root Directory** en `.` y producción desde `main`. Las páginas son `index.html` y `contacto.html` (servida en `/contacto` gracias a `cleanUrls` en `vercel.json`), con estilos en `styles.css`; los fondos están en `assets/`, las fuentes aprobadas autoalojadas en `fonts/`.
+
+`robots.txt` permite el rastreo normal y no menciona un sitemap porque el sitio no publica uno; tampoco restringe bots por proveedor.
 
 ## Marca
 
