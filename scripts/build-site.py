@@ -128,11 +128,10 @@ def make_markdown():
         if not rewards or not has_illustrative_label:
             return
         for reward in rewards:
-            if reward["count"]:
-                detail = f"{reward['count']} {reward['unit']} para recibir {reward['prizeCount']} {reward['prize']}"
-                lines.extend([f"- **{reward['name']}:** {reward['description']} {detail}.", ""])
-            else:
-                lines.extend([f"- **{reward['name']}:** {reward['description']}", ""])
+            if not reward["count"]:
+                continue
+            detail = f"{reward['count']} {reward['unit']} para recibir {reward['prizeCount']} {reward['prize']}"
+            lines.extend([f"- **{reward['name']}:** {reward['description']} {detail}.", ""])
 
     skip_next_heading = False
     for index, (tag, text) in enumerate(parser.blocks):

@@ -75,19 +75,41 @@ class BuildSiteTest(unittest.TestCase):
 
     def test_examples_are_labeled_as_illustrative_and_utf8_is_preserved(self):
         label = self.markdown.index("Ejemplos ilustrativos")
-        for example in ("Panadería:", "Café:", "Peluquería:", "Librería:", "Almacén:", "Tu comercio:"):
+        for example in ("Panadería:", "Café:", "Peluquería:", "Librería:", "Almacén:"):
             with self.subTest(example=example):
                 self.assertGreater(self.markdown.index(example), label)
+        self.assertNotIn("Cuéntanos qué vendes y armamos tu tarjeta juntos", self.markdown)
+        self.assertNotIn("**Tu comercio:**", self.markdown)
         for accent in ("beneficios", "beneficio", "cafés", "Tú"):
             with self.subTest(accent=accent):
                 self.assertIn(accent, self.markdown)
 
     def test_robots_allows_normal_crawling_without_claiming_a_sitemap(self):
         robots = (ROOT / "dist/robots.txt").read_text(encoding="utf-8")
-        self.assertIn("User-agent: *\nAllow: /", robots)
-        self.assertNotIn("Sitemap:", robots)
-        self.assertNotIn("GPTBot", robots)
-        self.assertNotIn("OAI-SearchBot", robots)
+        groups = []
+        current_group = None
+        for line in robots.splitlines():
+            line = line.partition("#")[0].strip()
+            if not line:
+                continue
+            directive, separator, value = line.partition(":")
+            if not separator:
+                continue
+            directive = directive.strip().lower()
+            value = value.strip()
+            if directive == "user-agent":
+                if current_group is None or current_group["directives"]:
+                    current_group = {"agents": [], "directives": []}
+                    groups.append(current_group)
+                current_group["agents"].append(value.lower())
+            elif current_group is not None:
+                current_group["directives"].append((directive, value))
+
+        self.assertTrue(any("*" in group["agents"] for group in groups))
+        for group in groups:
+            for directive, value in group["directives"]:
+                self.assertFalse(directive == "disallow" and value)
+        self.assertFalse(any(line.lower().startswith("sitemap:") for line in robots.splitlines()))
 
 
 if __name__ == "__main__":
