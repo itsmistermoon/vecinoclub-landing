@@ -21,6 +21,11 @@
     <link rel="icon" href="assets/brand/favicon-32.png" sizes="32x32" type="image/png">
     <link rel="icon" href="assets/brand/favicon-16.png" sizes="16x16" type="image/png">
     <link rel="apple-touch-icon" href="assets/brand/apple-touch-icon.png">
+    <script>
+      if (new URLSearchParams(location.search).get('hero') === 'fondo') {
+        document.documentElement.dataset.hero = 'fondo';
+      }
+    </script>
     <title>VecinoClub | Tu propio club de beneficios</title>
     <link rel="stylesheet" href="assets/brand/vecinoclub.css">
     <link rel="stylesheet" href="styles.css?v=rediseno3">
@@ -49,7 +54,7 @@
             <h1 id="hero-title">Tu propio club de beneficios.</h1>
             <p class="hero-subtitle">Fideliza a tus clientes con sellos y puntos en su celular, como lo hacen las grandes cadenas.</p>
             <div class="cta-row">
-              <a class="btn primary" href="https://wa.me/56978505946" data-llms-label="WhatsApp">Lo quiero en mi negocio</a>
+              <a class="btn primary" href="#como-funciona">Ver recorrido</a>
               <a class="btn outline" href="/contacto" data-llms-label="Contacto">Contáctanos</a>
             </div>
             <div class="facts" aria-label="Características principales">
@@ -57,15 +62,8 @@
               <div><b>Tú defines el beneficio</b><span class="mono">y cuántas compras pide</span></div>
             </div>
           </div>
-          <div class="hero-visual" aria-label="Ejemplo de tarjeta de sellos de VecinoClub">
-            <div class="hero-card">
-              <div class="card-row"><strong>Panadería Central</strong><small>Powered by <img src="assets/brand/vecinoclub_variant2_mono_dark.svg" width="70" height="10" alt="VecinoClub"></small></div>
-              <div class="stamps" role="img" aria-label="Cinco de siete sellos completados">
-                <svg class="stamp on" style="--i:0" aria-hidden="true"><use href="#stamp-star"/></svg><svg class="stamp on" style="--i:1" aria-hidden="true"><use href="#stamp-star"/></svg><svg class="stamp on" style="--i:2" aria-hidden="true"><use href="#stamp-star"/></svg><svg class="stamp on" style="--i:3" aria-hidden="true"><use href="#stamp-star"/></svg><svg class="stamp on" style="--i:4" aria-hidden="true"><use href="#stamp-star"/></svg><svg class="stamp" aria-hidden="true"><use href="#stamp-dashed"/></svg><svg class="stamp" aria-hidden="true"><use href="#stamp-dashed"/></svg>
-              </div>
-              <div class="progress" aria-hidden="true"><u></u></div>
-              <div class="card-footer"><small>Te faltan 2 compras para tu café gratis</small><span class="mock-button">Mostrar mi código</span></div>
-            </div>
+          <div class="hero-visual">
+            <img class="hero-scene" src="assets/hero-escena.svg" width="700" height="500" fetchpriority="high" alt="Un comercio de barrio rodeado de árboles y una banca, con Punto flotando sobre el local.">
           </div>
         </section>
 
@@ -102,8 +100,6 @@
           </div>
           <div class="reward-accordion">
             <svg class="reward-icon-sprite" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
-              <symbol id="stamp-star" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M11.051 7.616a1 1 0 0 1 1.909.024l.737 1.452a1 1 0 0 0 .737.535l1.634.256a1 1 0 0 1 .588 1.806l-1.172 1.168a1 1 0 0 0-.282.866l.259 1.613a1 1 0 0 1-1.541 1.134l-1.465-.75a1 1 0 0 0-.912 0l-1.465.75a1 1 0 0 1-1.539-1.133l.258-1.613a1 1 0 0 0-.282-.867l-1.156-1.152a1 1 0 0 1 .572-1.822l1.633-.256a1 1 0 0 0 .737-.535z"/></symbol>
-              <symbol id="stamp-dashed" viewBox="0 0 24 24"><path d="M10.1 2.182a10 10 0 0 1 3.8 0"/><path d="M13.9 21.818a10 10 0 0 1-3.8 0"/><path d="M17.609 3.721a10 10 0 0 1 2.69 2.7"/><path d="M2.182 13.9a10 10 0 0 1 0-3.8"/><path d="M20.279 17.609a10 10 0 0 1-2.7 2.69"/><path d="M21.818 10.1a10 10 0 0 1 0 3.8"/><path d="M3.721 6.391a10 10 0 0 1 2.7-2.69"/><path d="M6.391 20.279a10 10 0 0 1-2.69-2.7"/></symbol>
               <symbol id="reward-croissant" viewBox="0 0 24 24"><path d="M10.2 18H4.774a1.5 1.5 0 0 1-1.352-.97 11 11 0 0 1 .132-6.487"/><path d="M18 10.2V4.774a1.5 1.5 0 0 0-.97-1.352 11 11 0 0 0-6.486.132"/><path d="M18 5a4 3 0 0 1 4 3 2 2 0 0 1-2 2 10 10 0 0 0-5.139 1.42"/><path d="M5 18a3 4 0 0 0 3 4 2 2 0 0 0 2-2 10 10 0 0 1 1.42-5.14"/><path d="M8.709 2.554a10 10 0 0 0-6.155 6.155 1.5 1.5 0 0 0 .676 1.626l9.807 5.42a2 2 0 0 0 2.718-2.718l-5.42-9.807a1.5 1.5 0 0 0-1.626-.676"/></symbol>
               <symbol id="reward-coffee" viewBox="0 0 24 24"><path d="M10 2v2M14 2v2M16 8a1 1 0 0 1 1 1v8a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V9a1 1 0 0 1 1-1h14a4 4 0 1 1 0 8h-1M6 2v2"/></symbol>
               <symbol id="reward-scissors" viewBox="0 0 24 24"><circle cx="6" cy="6" r="3"/><path d="M8.12 8.12 12 12M20 4 8.12 15.88"/><circle cx="6" cy="18" r="3"/><path d="m14.8 14.8 5.2 5.2"/></symbol>
